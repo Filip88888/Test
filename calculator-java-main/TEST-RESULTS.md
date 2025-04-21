@@ -1,46 +1,35 @@
-
 # ✅ TEST-RESULTS
 
-## 🔍 Testiranje funkcionalnosti (Black Box)
+## ✔️ Jedinični testovi
 
-Testirano ponašanje kalkulatora sa različitim unosima:
-- `2+2` → ✅ 4.0
-- `5*3` → ✅ 15.0
-- `10/2` → ✅ 5.0
-- `10+5*2` → ✅ 20.0 (poštovan prioritet)
-- `10+5/0` → ⚠️ Infinity (nema obrade greške)
-- `abc+2` → ⚠️ ERROR (bez objašnjenja)
+### TestCalculator.java
 
-### Edge Cases
-- `-5+3` → ✅ -2.0 (ispravno dodaje 0 na početku izraza)
-- `+7-2` → ✅ 5.0
-- `4++4` → ⚠️ ERROR
+| Test metoda                | Ulazni izraz       | Očekivani rezultat | Status testa |
+|---------------------------|--------------------|---------------------|--------------|
+| testCalculateMixedOperations | 10+5*2-4/2         | 18.0                | ✅ Prošao     |
+| testCalculateSimpleAddition  | 3+7                | 10.0                | ✅ Prošao     |
+| testCalculateNegativeNumbers | -5+3               | -2.0                | ✅ Prošao     |
 
 ---
 
-## 🧪 Jedinični test
+## ❗ Zapažanja
 
-Jedinični test implementiran za `Calculator.Calculate()` metodu, testira aritmetiku i poštovanje prioriteta operacija. Pokriva:
-- Proste izraze
-- Mešane operacije sa prioritetima
-- Negativne brojeve
-
----
-
-## ⚠️ Analiza sa SonarQube
-
-1. **Višestruko otvaranje `Scanner` objekta** unutar petlje
-2. **Zatvaranje `Scanner` unutar petlje** može izazvati probleme pri sledećim unosima
-3. **Bez detaljnog objašnjenja za `ERROR` izlaze** (npr. greške u parsiranju)
-4. **Duplirani blokovi koda u `Calculate()`** metodi povećavaju kognitivnu složenost
-5. **Stil koda**: promenljive poput `Expression` koriste veliko slovo što nije u skladu sa Java konvencijama
+- Podržana je osnovna aritmetika sa prioritetom operacija.
+- Negativni brojevi se pravilno interpretiraju (npr. `-5+3`).
+- Kalkulator ne obrađuje razmake u izrazu (`5 + 3` izaziva grešku).
+- Ne postoji detaljna poruka o grešci za neispravne izraze.
+- Deljenje nulom izaziva `Infinity`, ali se ne javlja greška korisniku.
 
 ---
 
-## ✅ Preporuke
+## 💡 Preporuke
 
-- Premestiti `Scanner` van petlje i zatvoriti ga nakon izlaska
-- Refaktorisati `Calculate()` metodu da se izbegne duplirani kod (npr. korišćenjem petlji ili mapiranja)
-- Dodati bolju obradu grešaka i korisničkih poruka (npr. `"Neispravan izraz"`)
-- Poštovati Java naming konvencije (`expression` umesto `Expression`)
-- Potencijalno proširiti podršku za decimalne brojeve i zagrade
+- Dodati podršku za izraze sa razmacima (`trim()` ili preprocesiranje).
+- Prikazati korisniku konkretniju poruku kada se vrati `"ERROR"`.
+- Ukloniti višestruko kreiranje `Scanner` objekta (u `Start.java`).
+- Refaktorisati metodu `Calculate()` radi smanjenja kognitivne složenosti.
+- Razmotriti upotrebu regularnih izraza za napredno parsiranje izraza.
+
+---
+
+📅 Datum testa: *21. april 2025.*
